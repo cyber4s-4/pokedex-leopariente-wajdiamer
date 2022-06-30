@@ -34,10 +34,10 @@ export class PokemonComponent {
     pokemonName.textContent = "Name: " + pokemon.name;
 
     const pokemonHeight = document.createElement("h3");
-    pokemonHeight.textContent = "Height: " + pokemon.height;
+    pokemonHeight.textContent = "Height: " + pokemon.height + "'";
 
     const pokemonWeight = document.createElement("h3");
-    pokemonWeight.textContent = "Weight: " + pokemon.weight;
+    pokemonWeight.textContent = "Weight: " + pokemon.weight + " lbs";
 
     pokemonCard.append(pokemonIMG, pokemonName, pokemonHeight, pokemonWeight);
     this.parent.appendChild(pokemonCard);

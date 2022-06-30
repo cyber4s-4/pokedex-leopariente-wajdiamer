@@ -10,33 +10,35 @@ let listOfPokemon: Pokemon[] = []
 
 async function fetchAllPokemon() {
     let response = await fetch("https://pokeapi.co/api/v2/pokedex/1")
-    await response.json().then((data) => {
-        for (let entry of data.pokemon_entries) {
-            fetch("https://pokeapi.co/api/v2/pokemon/" + entry.pokemon_species.name)
-            .then((data) => data.json()).catch(() => console.log("no picture found"))
-            .then((data) => {
-                const pokemon: Pokemon = {
-                    id: entry.entry_number,
-                    name: entry.pokemon_species.name,
-                    height: data.height,
-                    weight: data.weight,
-                    img: data.sprites.front_default
+    let data = await response.json();
+    for (let entry of data.pokemon_entries) {
+        try {
+        let response = await fetch("https://pokeapi.co/api/v2/pokemon/" + entry.pokemon_species.name);
+        let pokemonData = await response.json();
+        const pokemon: Pokemon = {
+                        id: entry.entry_number,
+                        name: entry.pokemon_species.name,
+                        height: pokemonData.height,
+                        weight: pokemonData.weight,
+                        img: pokemonData.sprites.front_default
+                    }
+                   listOfPokemon.push(pokemon);
+                   new PokedexComponent(pokemon, pokedex);
                 }
-                listOfPokemon.push(pokemon)
-                new PokedexComponent(pokemon, pokedex);
-            })
-        }
-    });
+                catch (err) {
+                    console.log("api not comlete");
+                }
+            }
 }
 
-async function fetchPokemon() {
+function fetchPokemon() {
     const pokemonToSearch: string = input.value;
     const pokemonToRender: Pokemon | undefined = listOfPokemon.find((pokemon) => {
         if (pokemon.name === pokemonToSearch) return pokemon;
         else return undefined
     })
     if (pokemonToRender) {
-    new PokemonComponent(pokemonToRender, pokedex);
+        new PokemonComponent(pokemonToRender, pokedex);
     } else {
         alert("No such Pokemon!")
     }
