@@ -1,8 +1,8 @@
 import { Pokemon, PokemonComponent } from "./pokemonComponent";
 
-const button = document.querySelector("#submit") as HTMLButtonElement;
-const input = document.querySelector("#pokemon") as HTMLInputElement;
-const parent = document.querySelector("#data") as HTMLDivElement;
+const button = document.querySelector("button") as HTMLButtonElement;
+const input = document.querySelector("input") as HTMLInputElement;
+const parent = document.querySelector("#list") as HTMLDivElement;
 button.addEventListener('click', fetchPokemon);
 
 

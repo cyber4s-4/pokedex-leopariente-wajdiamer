@@ -1,0 +1,17 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    height: 300px;
+    border: 2px gray solid;
+    border-radius: 10px;
+    background-color: rgb(222, 222, 222);
+    margin-top: 20px;
+}

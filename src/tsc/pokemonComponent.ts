@@ -24,6 +24,7 @@ export class PokemonComponent {
 
   render(pokemon: Pokemon) {
     const pokemonCard = document.createElement("div");
+    pokemonCard.classList.add("card");
 
     const pokemonIMG = document.createElement("img");
     pokemonIMG.src = pokemon.img;
