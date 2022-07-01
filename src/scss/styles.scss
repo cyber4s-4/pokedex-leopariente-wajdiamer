@@ -1,3 +1,6 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
 body {
     display: flex;
     flex-direction: column;
@@ -26,4 +29,9 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     width: 80%;
+}
+
+.pokemonParent {
+    display: flex;
+    justify-content: center;
 }

@@ -42,7 +42,11 @@ function fetchPokemon() {
 		else return undefined;
 	});
 	if (pokemonToRender) {
-		new PokemonComponent(pokemonToRender, pokedex);
+    pokedex.remove();
+    const pokemonParent = document.createElement("div");
+    pokemonParent.classList.add("pokemonParent");
+    document.body.appendChild(pokemonParent);
+		new PokemonComponent(pokemonToRender, pokemonParent);
 	} else {
 		alert('No such Pokemon!');
 	}

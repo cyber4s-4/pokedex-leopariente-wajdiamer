@@ -23,7 +23,7 @@ export class PokedexComponent {
 		pokemonID.textContent = '#' + pokemon.id;
 
 		const pokemonName = document.createElement('h3');
-		pokemonName.textContent = 'Name: ' + pokemon.name.toUpperCase();
+		pokemonName.textContent = pokemon.name.toUpperCase();
 
 		pokemonCard.append(pokemonIMG, pokemonID, pokemonName);
 		this.parent.appendChild(pokemonCard);
