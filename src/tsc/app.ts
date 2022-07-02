@@ -5,12 +5,15 @@ import { Pokemon } from './data';
 const button = document.querySelector('button') as HTMLButtonElement;
 const input = document.querySelector('input') as HTMLInputElement;
 const pokedex = document.querySelector('#pokedex') as HTMLDivElement;
+const surpriseButton = document.querySelector('#surpriseButton') as HTMLButtonElement;
 const pokemonParent = document.createElement("div");
 pokemonParent.classList.add("pokemonParent");
 button.addEventListener('click', () => fetchPokemon(null));
+surpriseButton.addEventListener('click', () => fetchPokemon(randomPokemon));
 
 let listOfPokemon: Pokemon[] = JSON.parse(window.localStorage.getItem('pokemon')!);
 if (listOfPokemon === null) listOfPokemon = [];
+let randomPokemon: string = (listOfPokemon[Math.floor(Math.random()*listOfPokemon.length)].name);
 
 async function fetchAllPokemon() {
 	const response = await fetch('https://pokeapi.co/api/v2/pokedex/1');
