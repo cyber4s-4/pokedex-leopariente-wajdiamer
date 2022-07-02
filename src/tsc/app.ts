@@ -9,11 +9,10 @@ const surpriseButton = document.querySelector('#surpriseButton') as HTMLButtonEl
 const pokemonParent = document.createElement("div");
 pokemonParent.classList.add("pokemonParent");
 button.addEventListener('click', () => fetchPokemon(null));
-surpriseButton.addEventListener('click', () => fetchPokemon(randomPokemon));
+surpriseButton.addEventListener('click', () => fetchPokemon((listOfPokemon[Math.floor(Math.random()*listOfPokemon.length)].name)));
 
 let listOfPokemon: Pokemon[] = JSON.parse(window.localStorage.getItem('pokemon')!);
 if (listOfPokemon === null) listOfPokemon = [];
-let randomPokemon: string = (listOfPokemon[Math.floor(Math.random()*listOfPokemon.length)].name);
 
 async function fetchAllPokemon() {
 	const response = await fetch('https://pokeapi.co/api/v2/pokedex/1');
