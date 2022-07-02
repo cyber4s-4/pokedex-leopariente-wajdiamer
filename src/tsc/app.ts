@@ -45,7 +45,7 @@ async function fetchAllPokemon() {
 function fetchPokemon(name: string | null) {
 	let pokemonToSearch: string;
 	if (name === null) {
-	pokemonToSearch = input.value;
+	pokemonToSearch = input.value.toLowerCase();
 	} else {
 		pokemonToSearch = name;
 	}
