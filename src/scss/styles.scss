@@ -1,7 +1,14 @@
+@import "button.css";
+
 * {
     font-family: Arial, Helvetica, sans-serif;
 }
+input {
+    height: 30px;
+}
+
 body {
+    margin: 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,6 +29,11 @@ body {
 .pokedexItem {
     margin: 20px;
     height: 200px;
+    cursor: pointer;
+    transition: transform 0.3s 
+}
+.pokedexItem:hover {
+        transform: scale(1.1); 
 }
 
 #pokedex {
@@ -34,4 +46,28 @@ body {
 .pokemonParent {
     display: flex;
     justify-content: center;
+}
+
+.nav-bar {
+    height: 50;
+    width: 100%;
+    background-color: #f53a3a;
+    position: sticky;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    a {
+        padding: 20px;
+        top: 50%;
+        font-size: 20px;
+        color: white;
+        text-decoration: none;
+        font-family: din-round,sans-serif;
+    }
+}
+
+.search {
+    margin: 50px;
 }

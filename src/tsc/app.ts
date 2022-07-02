@@ -5,7 +5,9 @@ import { Pokemon } from './data';
 const button = document.querySelector('button') as HTMLButtonElement;
 const input = document.querySelector('input') as HTMLInputElement;
 const pokedex = document.querySelector('#pokedex') as HTMLDivElement;
-button.addEventListener('click', fetchPokemon);
+const pokemonParent = document.createElement("div");
+pokemonParent.classList.add("pokemonParent");
+button.addEventListener('click', () => fetchPokemon(null));
 
 let listOfPokemon: Pokemon[] = JSON.parse(window.localStorage.getItem('pokemon')!);
 if (listOfPokemon === null) listOfPokemon = [];
@@ -27,24 +29,29 @@ async function fetchAllPokemon() {
 				img: pokemonData.sprites.front_default,
 			};
 			listOfPokemon.push(pokemon);
-			new PokedexComponent(pokemon, pokedex);
+			const pokedexComponent = new PokedexComponent(pokemon, pokedex);
+			const pokemonCard = pokedexComponent.render(pokemon);
+			pokemonCard.addEventListener("click", () => fetchPokemon(pokemon.name));
 		} catch (err) {
-			console.log('api not comlete');
+			console.log('api missing this pokemon');
 		}
 	}
 	localStorage.setItem('pokemon', JSON.stringify(listOfPokemon));
 }
 
-function fetchPokemon() {
-	const pokemonToSearch: string = input.value;
+function fetchPokemon(name: string | null) {
+	let pokemonToSearch: string;
+	if (name === null) {
+	pokemonToSearch = input.value;
+	} else {
+		pokemonToSearch = name;
+	}
 	const pokemonToRender: Pokemon | undefined = listOfPokemon.find((pokemon) => {
 		if (pokemon.name === pokemonToSearch) return pokemon;
 		else return undefined;
 	});
 	if (pokemonToRender) {
     pokedex.remove();
-    const pokemonParent = document.createElement("div");
-    pokemonParent.classList.add("pokemonParent");
     document.body.appendChild(pokemonParent);
 		new PokemonComponent(pokemonToRender, pokemonParent);
 	} else {
@@ -56,6 +63,8 @@ if (listOfPokemon.length === 0) {
 	fetchAllPokemon();
 } else {
 	for (const pokemon of listOfPokemon) {
-		new PokedexComponent(pokemon, pokedex);
+		const pokedexComponent = new PokedexComponent(pokemon, pokedex);
+		const pokemonCard = pokedexComponent.render(pokemon);
+		pokemonCard.addEventListener("click", () => fetchPokemon(pokemon.name));
 	}
 }

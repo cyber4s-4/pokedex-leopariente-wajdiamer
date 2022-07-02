@@ -8,7 +8,6 @@ export class PokedexComponent {
 	constructor(data: Pokemon, parent: HTMLElement) {
 		this.data = data;
 		this.parent = parent;
-		this.render(data);
 	}
 
 	render(pokemon: Pokemon) {
@@ -27,5 +26,6 @@ export class PokedexComponent {
 
 		pokemonCard.append(pokemonIMG, pokemonID, pokemonName);
 		this.parent.appendChild(pokemonCard);
+		return pokemonCard;
 	}
 }

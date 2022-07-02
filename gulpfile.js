@@ -27,9 +27,9 @@ gulp.task('scss', () => {
     .pipe(gulp.dest('./dist'));
 });
 
-// Transfers html
-gulp.task('html', () => {
-  return gulp.src(['./src/html/**/*.html'])
+// Transfers index
+gulp.task('index', () => {
+  return gulp.src(['./src/html/index.html', './src/html/favicon.ico'])
     .pipe(gulp.dest('./dist'));
 });
 
@@ -57,7 +57,7 @@ gulp.task('watch-scss', () => {
 
 // Watch html files
 gulp.task('watch-html', () => {
-  return gulp.watch('./src/**/*.html', gulp.series('html'));
+  return gulp.watch('./src/**/*.html', gulp.series('index'));
 });
 
 // Watch tsc files
@@ -81,7 +81,7 @@ gulp.task('tsc-w', () => {
 gulp.task('default', gulp.series(
   'start',
   'scss',
-  'html',
+  'index',
   'tsc',
   'build',
   gulp.parallel(
