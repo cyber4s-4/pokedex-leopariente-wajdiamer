@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const fetch = require("cross-fetch")
 
 const portHttp = 4000;
 
@@ -15,11 +16,39 @@ app.use(express.static(root), (req, res, next) => {
   next();
 });
 
-const filePath = path.join(__dirname, "../data/data.json");
-const listOfPokemon = JSON.parse(fs.readFileSync(filePath, "utf8"));
+async function fetchAllPokemon() {
+  let listOfPokemon = [];
+	const response = await fetch('https://pokeapi.co/api/v2/pokedex/1');
+	const data = await response.json();
+	for (const entry of data.pokemon_entries) {
+		try {
+			const response = await fetch(
+				'https://pokeapi.co/api/v2/pokemon/' + entry.pokemon_species.name
+			);
+			const pokemonData = await response.json();
+			const pokemon = {
+				id: pokemonData.id,
+				name: pokemonData.name,
+				height: pokemonData.height,
+				weight: pokemonData.weight,
+				img: pokemonData.sprites.front_default,
+			};
+			listOfPokemon.push(pokemon);
+		} catch (err) {
+			console.log('api missing this pokemon');
+		}
+	}
+  fs.writeFileSync(filePath, JSON.stringify(listOfPokemon));
+}
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(root, 'index.html'));
+const filePath = path.join(__dirname, "./data/data.json");
+let listOfPokemon = JSON.parse(fs.readFileSync(filePath, "utf8"));
+if (listOfPokemon.length === 0) {
+  listOfPokemon = fetchAllPokemon();
+}
+
+app.get('/pokedex', (req, res) => {
+  res.send(listOfPokemon);
 });
 
 app.listen(portHttp, () => {
