@@ -11,8 +11,8 @@ const pokemonParent = document.createElement("div");
 pokemonParent.classList.add("pokemonParent");
 let listOfPokemon: Pokemon[] = [];
 surpriseButton.addEventListener('click', () => fetchPokemon('random'));
-button.addEventListener('click', () => { 
-	if(input.value.length !== 0) {
+button.addEventListener('click', () => {
+	if (input.value.length !== 0) {
 		fetchPokemon(null);
 	} else {
 		alert("Please type a Pokemon name to search..");
@@ -23,22 +23,22 @@ button.addEventListener('click', () => {
 function fetchPokemon(name: string | null) {
 	let pokemonToSearch: string;
 	if (name === null) {
-	pokemonToSearch = input.value.toLowerCase();
+		pokemonToSearch = input.value.toLowerCase();
 	} else {
 		pokemonToSearch = name;
 	}
 
 	fetch(baseURL + "pokedex/" + pokemonToSearch)
-	.then(res => res.json())
-	.then((data) => {
-		pokedex.remove();
-		document.body.appendChild(pokemonParent);
-		new PokemonComponent(data, pokemonParent);
-	})
-	.catch(err => {
-		console.log("Pokemon Not Found, Error: " + err)
-		alert('Pokemon Not Found')
-	})
+		.then(res => res.json())
+		.then((data) => {
+			pokedex.remove();
+			document.body.appendChild(pokemonParent);
+			new PokemonComponent(data, pokemonParent);
+		})
+		.catch(err => {
+			console.log("Pokemon Not Found, Error: " + err)
+			alert('Pokemon Not Found')
+		})
 }
 
 fetch(baseURL + "pokedex").then(res => res.json()).then((data) => {

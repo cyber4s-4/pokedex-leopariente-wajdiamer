@@ -13,11 +13,11 @@ app.use(bodyParser.json());
 
 const root = path.join(process.cwd(), 'dist');
 app.use(express.static(root), (req, res, next) => {
-  next();
+	next();
 });
 
 async function fetchAllPokemon() {
-  let listOfPokemon = [];
+	let listOfPokemon = [];
 	const response = await fetch('https://pokeapi.co/api/v2/pokedex/1');
 	const data = await response.json();
 	for (const entry of data.pokemon_entries) {
@@ -38,17 +38,17 @@ async function fetchAllPokemon() {
 			console.log('api missing this pokemon');
 		}
 	}
-  fs.writeFileSync(filePath, JSON.stringify(listOfPokemon));
+	fs.writeFileSync(filePath, JSON.stringify(listOfPokemon));
 }
 
 const filePath = path.join(__dirname, "./data/data.json");
 let listOfPokemon = JSON.parse(fs.readFileSync(filePath, "utf8"));
 if (listOfPokemon.length === 0) {
-  listOfPokemon = fetchAllPokemon();
+	listOfPokemon = fetchAllPokemon();
 }
 
 app.get('/pokedex', (req, res) => {
-  res.send(listOfPokemon);
+	res.send(listOfPokemon);
 });
 
 app.get('/pokedex/:name', (req, res) => {
@@ -56,12 +56,12 @@ app.get('/pokedex/:name', (req, res) => {
 	if (req.params.name !== 'random') {
 		pokemonToFind = listOfPokemon.find(pokemon => pokemon.name === req.params.name);
 	} else {
-		pokemonToFind = listOfPokemon[Math.floor(Math.random()*listOfPokemon.length)];
+		pokemonToFind = listOfPokemon[Math.floor(Math.random() * listOfPokemon.length)];
 	}
 
 	res.send(pokemonToFind);
 });
 
 app.listen(portHttp, () => {
-  console.log('Hosted: http://localhost:' + portHttp);
+	console.log('Hosted: http://localhost:' + portHttp);
 });
