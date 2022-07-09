@@ -52,7 +52,13 @@ app.get('/pokedex', (req, res) => {
 });
 
 app.get('/pokedex/:name', (req, res) => {
-	const pokemonToFind = listOfPokemon.find(pokemon => pokemon.name === req.params.name);
+	let pokemonToFind = '';
+	if (req.params.name !== 'random') {
+		pokemonToFind = listOfPokemon.find(pokemon => pokemon.name === req.params.name);
+	} else {
+		pokemonToFind = listOfPokemon[Math.floor(Math.random()*listOfPokemon.length)];
+	}
+
 	res.send(pokemonToFind);
 });
 
