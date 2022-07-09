@@ -51,6 +51,11 @@ app.get('/pokedex', (req, res) => {
   res.send(listOfPokemon);
 });
 
+app.get('/pokedex/:name', (req, res) => {
+	const pokemonToFind = listOfPokemon.find(pokemon => pokemon.name === req.params.name);
+	res.send(pokemonToFind);
+});
+
 app.listen(portHttp, () => {
   console.log('Hosted: http://localhost:' + portHttp);
 });
