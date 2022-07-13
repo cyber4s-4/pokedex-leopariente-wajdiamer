@@ -40,9 +40,7 @@ function fetchPokemon(name: string | null) {
 			alert('Pokemon Not Found')
 		})
 }
-
-
-fetch(baseURL)
+fetch(baseURL + "reset");
 fetch(baseURL + "pokedex").then(res => res.json()).then((data) => {
 	for (const pokemon of data) {
 		listOfPokemon.push(pokemon);

@@ -55,6 +55,10 @@ app.get('/pokedex', (req, res) => {
 	res.send(listToSend)
 });
 
+app.get('/reset', (req, res) => {
+	index = 0;
+})
+
 app.get('/pokedex/:name', (req, res) => {
 	let pokemonToFind = '';
 	if (req.params.name !== 'random') {
@@ -65,10 +69,6 @@ app.get('/pokedex/:name', (req, res) => {
 
 	res.send(pokemonToFind);
 });
-
-app.get('/', (req, res) => {
-	index = 0;
-})
 
 app.listen(portHttp, () => {
 	console.log('Hosted: http://localhost:' + portHttp);
