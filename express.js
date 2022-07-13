@@ -6,15 +6,14 @@ const bodyParser = require('body-parser');
 const fetch = require("cross-fetch")
 
 const portHttp = 4000;
+let index = 0;
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
 const root = path.join(process.cwd(), 'dist');
-app.use(express.static(root), (req, res, next) => {
-	next();
-});
+app.use(express.static(root));
 
 async function fetchAllPokemon() {
 	let listOfPokemon = [];
@@ -48,7 +47,12 @@ if (listOfPokemon.length === 0) {
 }
 
 app.get('/pokedex', (req, res) => {
-	res.send(listOfPokemon);
+	let listToSend = [];
+	for (let i=0; i < 20; i++) {
+		listToSend.push(listOfPokemon[index]);
+		index +=1;
+	}
+	res.send(listToSend)
 });
 
 app.get('/pokedex/:name', (req, res) => {
@@ -61,6 +65,10 @@ app.get('/pokedex/:name', (req, res) => {
 
 	res.send(pokemonToFind);
 });
+
+app.get('/', (req, res) => {
+	index = 0;
+})
 
 app.listen(portHttp, () => {
 	console.log('Hosted: http://localhost:' + portHttp);

@@ -41,6 +41,8 @@ function fetchPokemon(name: string | null) {
 		})
 }
 
+
+fetch(baseURL)
 fetch(baseURL + "pokedex").then(res => res.json()).then((data) => {
 	for (const pokemon of data) {
 		listOfPokemon.push(pokemon);
@@ -49,3 +51,16 @@ fetch(baseURL + "pokedex").then(res => res.json()).then((data) => {
 		pokemonCard.addEventListener("click", () => fetchPokemon(pokemon.name));
 	}
 });
+
+window.onscroll = function() {
+    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+        fetch(baseURL + "pokedex").then(res => res.json()).then((data) => {
+			for (const pokemon of data) {
+				listOfPokemon.push(pokemon);
+				const pokedexComponent = new PokedexComponent(pokemon, pokedex);
+				const pokemonCard = pokedexComponent.render(pokemon);
+				pokemonCard.addEventListener("click", () => fetchPokemon(pokemon.name));
+			}
+		}).catch(() => console.log("No more pokemon!"));
+    }
+};
