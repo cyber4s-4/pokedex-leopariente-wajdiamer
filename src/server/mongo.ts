@@ -22,3 +22,9 @@ export async function getPokemon(index: number, collection: Collection) {
 export async function findPokemon(name: String, collection: Collection) {
     return await collection.findOne({ name: name})
 }
+
+export async function getRandom(collection: Collection) {
+  const listOfPokemon = await collection.find({}).toArray();
+ const randomNumber = Math.floor(Math.random() * listOfPokemon.length)
+ return listOfPokemon[randomNumber];
+}

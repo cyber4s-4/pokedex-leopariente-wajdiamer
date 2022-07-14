@@ -10,7 +10,16 @@ const surpriseButton = document.querySelector('#surpriseButton') as HTMLButtonEl
 const pokemonParent = document.createElement("div");
 pokemonParent.classList.add("pokemonParent");
 let listOfPokemon: Pokemon[] = [];
-surpriseButton.addEventListener('click', () => fetchPokemon('random'));
+
+surpriseButton.addEventListener('click', () => {
+	fetch('/random').then(res => res.json())
+	.then((data) => {
+		pokedex.remove();
+		document.body.appendChild(pokemonParent);
+		new PokemonComponent(data, pokemonParent);
+	})
+});
+
 button.addEventListener('click', () => {
 	if (input.value.length !== 0) {
 		fetchPokemon(null);

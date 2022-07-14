@@ -2,7 +2,7 @@ import path from "path";
 import cors from "cors";
 import express, { Request, Response } from "express";
 import { Collection } from "mongodb";
-import { create, connect, getPokemon, findPokemon } from "./mongo";
+import { create, connect, getPokemon, findPokemon, getRandom } from "./mongo";
 import { json } from "body-parser";
 // import { Pokemon } from 'src/client/tsc/data';
 
@@ -41,6 +41,11 @@ app.get("/pokedex/:name", (req, res) => {
 	res.send(data);
   })
 });
+
+// @ts-ignore
+app.get("/random", (req, res) => {
+  getRandom(collection).then(data => res.send(data))
+})
 
 app.listen(portHttp, () => {
   console.log("Hosted: http://localhost:" + portHttp);
