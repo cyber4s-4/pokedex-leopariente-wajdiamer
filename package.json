@@ -1,7 +1,7 @@
 {
   "name": "mongo",
   "scripts": {
-    "start": "gulp",
+    "start": "node dbConvert.js && gulp",
     "dev": "gulp dev",
     "server": "nodemon --watch ./src/server ./src/server/server.ts",
     "deploy": "gulp deploy",
