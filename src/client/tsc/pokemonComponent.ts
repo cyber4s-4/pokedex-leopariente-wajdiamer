@@ -22,6 +22,8 @@ export class PokemonComponent {
 
     const pokemonIMG = document.createElement("img");
     pokemonIMG.src = pokemon.img;
+    pokemonIMG.height = 96;
+		pokemonIMG.width = 96;
 
     const pokemonName = document.createElement("h3");
     pokemonName.textContent = "Name: " + pokemon.name.toUpperCase();

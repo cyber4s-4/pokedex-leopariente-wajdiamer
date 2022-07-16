@@ -24,7 +24,7 @@ export function generateFusedPokemons(arr: Pokemon[]) {
       name: pokemon1.name.slice(0, 4) + pokemon2.name.slice(3, 7),
       height: Math.floor((parseInt(pokemon1.height) + parseInt(pokemon2.height)) / 2 ).toString(),
       weight: Math.floor((parseInt(pokemon1.weight) + parseInt(pokemon2.weight)) / 2 ).toString(),
-      img: `https://raw.githubusercontent.com/Aegide/autogen-fusion-sprites/master/Battlers/${pokemon1.id}/${pokemon1.id}.${pokemon2.id}.png`
+      img: `https://images.alexonsager.net/pokemon/fused/${pokemon1.id}/${pokemon1.id}.${pokemon2.id}.png`
     };
     return newPokemon;
   }
