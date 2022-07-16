@@ -11,7 +11,9 @@ export async function connect(client: MongoClient) {
   await client.connect();
   const db: Db = client.db('pokedex');
   const collection: Collection = db.collection('pokemon');
-  collection.insertMany(generateFusedPokemons(listOfPokemon));
+  if (await collection.countDocuments() < 1000) {
+    collection.insertMany(generateFusedPokemons(listOfPokemon));
+  }
   return collection;
 }
 
