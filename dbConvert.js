@@ -18,6 +18,7 @@ async function run() {
     if (curser.length == 0) {
       await client.db("pokedex").collection("pokemon").insertMany(listOfPokemon);
       console.log("Added pokemon!")
+      // await client.db("pokedex").collection("pokemon").deleteMany({});
     }
   } finally {
     // Ensures that the client will close when you finish/error

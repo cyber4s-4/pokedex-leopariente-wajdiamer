@@ -9,7 +9,12 @@ const pokedex = document.querySelector('#pokedex') as HTMLDivElement;
 const surpriseButton = document.querySelector('#surpriseButton') as HTMLButtonElement;
 const pokemonParent = document.createElement("div");
 pokemonParent.classList.add("pokemonParent");
+const logo = document.querySelector(".logo");
 let listOfPokemon: Pokemon[] = [];
+
+logo?.addEventListener("click", () => {
+	fetch(baseURL + "reset");
+})
 
 surpriseButton.addEventListener('click', () => {
 	fetch('/random').then(res => res.json())
@@ -49,7 +54,7 @@ function fetchPokemon(name: string | null) {
 			alert('Pokemon Not Found')
 		})
 }
-fetch(baseURL + "reset");
+
 fetch(baseURL + "pokedex").then(res => res.json()).then((data) => {
 	for (const pokemon of data) {
 		listOfPokemon.push(pokemon);

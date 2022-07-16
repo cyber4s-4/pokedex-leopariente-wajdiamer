@@ -22,17 +22,17 @@ connect(create()).then((res) => (collection = res));
 // @ts-ignore
 app.get("/reset", (req: Request, res: Response) => {
 	index = 0;
+  getPokemon(index, collection).then((listOfPokemon) => {
+    index += 20;
+    res.send(listOfPokemon);
+  });
   });
   
 // @ts-ignore
 app.get("/pokedex", (req: Request, res: Response) => {
   getPokemon(index, collection).then((listOfPokemon) => {
-    let listToSend = [];
-    for (let i = 0; i < 20; i++) {
-      listToSend.push(listOfPokemon[i]);
-      index += 1;
-    }
-    res.send(listToSend);
+    index += 20;
+    res.send(listOfPokemon);
   });
 });
 
