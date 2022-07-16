@@ -12,9 +12,7 @@ pokemonParent.classList.add("pokemonParent");
 const logo = document.querySelector(".logo");
 let listOfPokemon: Pokemon[] = [];
 
-logo?.addEventListener("click", () => {
-	fetch(baseURL + "reset");
-})
+logo?.addEventListener("click", resetPage)
 
 surpriseButton.addEventListener('click', () => {
 	fetch('/random').then(res => res.json())
@@ -33,6 +31,16 @@ button.addEventListener('click', () => {
 	}
 });
 
+async function resetPage() {
+ await fetch(baseURL + "reset").then(res => res.json()).then((data) => {
+	for (const pokemon of data) {
+		listOfPokemon.push(pokemon);
+		const pokedexComponent = new PokedexComponent(pokemon, pokedex);
+		const pokemonCard = pokedexComponent.render(pokemon);
+		pokemonCard.addEventListener("click", () => fetchPokemon(pokemon.name));
+	}
+});
+}
 
 function fetchPokemon(name: string | null) {
 	let pokemonToSearch: string;
@@ -55,15 +63,7 @@ function fetchPokemon(name: string | null) {
 		})
 }
 
-fetch(baseURL + "pokedex").then(res => res.json()).then((data) => {
-	for (const pokemon of data) {
-		listOfPokemon.push(pokemon);
-		const pokedexComponent = new PokedexComponent(pokemon, pokedex);
-		const pokemonCard = pokedexComponent.render(pokemon);
-		pokemonCard.addEventListener("click", () => fetchPokemon(pokemon.name));
-	}
-});
-
+resetPage();
 window.onscroll = function() {
     if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
         fetch(baseURL + "pokedex").then(res => res.json()).then((data) => {

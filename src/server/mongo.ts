@@ -31,8 +31,3 @@ export async function getRandom(collection: Collection) {
  const randomNumber = Math.floor(Math.random() * listOfPokemon.length)
  return listOfPokemon[randomNumber];
 }
-
-export async function findAllPokemon(collection: Collection) {
-  const curser = collection.find({});
-  await curser.forEach(console.log);
-}
