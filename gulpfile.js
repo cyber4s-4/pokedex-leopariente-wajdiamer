@@ -93,6 +93,7 @@ gulp.task('heroku-copy-dist', () => {
     './dist/favicon.ico',
     './dist/index.html',
     './dist/styles.css',
+    './dist/button.css',
   ])
     .pipe(gulp.dest('./deploy/dist'));
 });
@@ -103,8 +104,9 @@ gulp.task('heroku-copy-root', () => {
     './package.json',
     './package-lock.json',
     './Procfile',
-    './dist/tsc/server/server.js',
+    './dist/tsc/server/express.js',
     './dist/tsc/server/mongo.js',
+    './dist/tsc/server/fuser.js',
   ])
     .pipe(gulp.dest('./deploy'));
 });
