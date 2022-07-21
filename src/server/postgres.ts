@@ -1,4 +1,4 @@
-const { Client } = require('pg');
+import { Client } from "pg";
 
 export function create() {
     const client = new Client({
@@ -9,3 +9,25 @@ export function create() {
       });
       return client;
 }
+
+export async function connect(client: Client) {
+    client.connect()
+    return client;
+  }
+  
+    // @ts-ignore
+  export async function getPokemon(index: number, client: Client) {
+    return await client.query(`SELECT * FROM pokemon WHERE id>${index} AND id<${index+21};`).then(res => res.rows);
+  }
+  
+  // @ts-ignore
+  export async function findPokemon(name: String, client: Client) {
+    return await client.query(`SELECT * FROM pokemon WHERE name='${name}';`).then(res => res.rows[0]);
+  }
+  
+    // @ts-ignore
+  export async function getRandom(client: Client) {
+    const listOfPokemon = await client.query(`SELECT * FROM pokemon`).then(res => res.rows);
+    const randomNumber = Math.floor(Math.random() * listOfPokemon.length);
+    return listOfPokemon[randomNumber];
+  }
