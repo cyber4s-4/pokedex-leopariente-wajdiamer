@@ -1,8 +1,8 @@
+//If you want to use mongo, please comment line 7 and uncomment line 6
+
 import path from "path";
 import cors from "cors";
 import express, { Request, Response } from "express";
-//@ts-ignore
-import { Collection } from "mongodb";
 // import { create, connect, getPokemon, findPokemon, getRandom } from "./mongo";
 import { create, connect, getPokemon, findPokemon, getRandom } from "./postgres";
 import { json } from "body-parser";
