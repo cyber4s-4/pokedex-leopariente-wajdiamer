@@ -1,4 +1,5 @@
 import { Client } from "pg";
+import { generateFusedPokemons, listOfPokemon } from './fuser';
 
 export function create() {
     const client = new Client({
@@ -12,6 +13,19 @@ export function create() {
 
 export async function connect(client: Client) {
     client.connect()
+    client.query(`SELECT COUNT(*) FROM pokemon;`).then(data => {
+      if (data.rows[0]['count'] < 873) {
+        const generated = generateFusedPokemons(listOfPokemon);
+        for (let pokemon of generated) {
+          client.query(`INSERT INTO 
+          pokemon (name, height, weight, img)
+          VALUES
+          ('${pokemon.name}', '${pokemon.height}', '${pokemon.weight}', '${pokemon.img}')`, () => {
+              console.log(`added ${pokemon.name}`);
+            });
+          }
+      }
+    });
     return client;
   }
   
